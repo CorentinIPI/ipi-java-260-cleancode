@@ -16,55 +16,71 @@ public class BowlingGame {
     	//Incrémentaion du nombre de lancer
     	NmLancer++;
     	
-    	if(NmLancer%2==1){
+    	//Test Fin de la partie
+    	if(NmLancer<=24) {
     		
-    	
-    		PrecLancer1=numberPins;
-    		if(isSpare()) {
-    			score += numberPins*2;
-    			isSpare=false;
-    			if(numberPins==10) {
-    				isStrike=true;
-    				NmLancer++;
-    			}
-    		}else if(isStrike() && isDoubleStrike!=true){
-    			score += numberPins*2;
-    			if(numberPins==10) {
-    				isDoubleStrike=true;
-    				NmLancer++;
-    			}
-    		}else if(isDoubleStrike && NmLancer<=21) {
-    			score += numberPins*3;
-    			NmLancer++;
-    			if(numberPins != 10) isDoubleStrike=false;
-    		}else if(numberPins==10){
-    			score+= numberPins;
-    			if(NmLancer<=21) isStrike=true;
-    			NmLancer++;
-    		}else {
-    			score+= numberPins;
-    		}
-    		
-    		
-    	}else {
-    		if(PrecLancer1+numberPins==10) {
-    			isSpare=true;
-    			if(isStrike()) {
-    				score += numberPins*2;
-    				isStrike=false;
-    			}else {
-    				score += numberPins;
-    			}
-    			
-    		}else if(isStrike()) {
-    			score += numberPins*2;
-    			isStrike=false;
-    		}else {
-    			score += numberPins;
-    		}
-    		
+    		//Nombre Impair Premier lancer du frame
+	    	if(NmLancer%2==1){
+	    		
+	    		//Save du Lancer
+	    		PrecLancer1=numberPins;
+	    		
+	    		
+	    		if(isSpare()) {				//Test du Spare
+	    			score += numberPins*2;
+	    			isSpare=false;
+	    			if(numberPins==10) {
+	    				isStrike=true;
+	    				NmLancer++;
+	    			}
+	    		}else if(isStrike() && isDoubleStrike!=true){ //Test de 1 Strike 
+	    			score += numberPins*2;
+	    			if(numberPins==10) {
+	    				isDoubleStrike=true;
+	    				NmLancer++;
+	    			}
+	    		}else if(isDoubleStrike) {   //Test de plusieurs Strike à la suite
+	    			if(NmLancer<21) {
+		    			score += numberPins*3;
+		    			NmLancer++;
+		    			if(numberPins != 10) isDoubleStrike=false;
+	    			}else {
+	    				score += numberPins;
+	    			}
+	    			
+	    		}else if(numberPins==10){
+	    			score+= numberPins;
+	    			if(NmLancer<19) {
+	    				isStrike=true;
+	    			}else {
+	    				isStrike=false;
+	    			}
+	    			NmLancer++;
+	    		}else {
+	    			score+= numberPins;
+	    		}
+	    		
+	    		
+	    	}else {
+	    		//Gestion du Second lancer
+	    		if(PrecLancer1+numberPins==10) {
+	    			isSpare=true;
+	    			if(isStrike()) {
+	    				score += numberPins*2;
+	    				isStrike=false;
+	    			}else {
+	    				score += numberPins;
+	    			}
+	    			
+	    		}else if(isStrike()) {
+	    			score += numberPins*2;
+	    			isStrike=false;
+	    		}else {
+	    			score += numberPins;
+	    		}
+	    		
+	    	}
     	}
-    	
         
     }
 

@@ -84,6 +84,40 @@ public class BowlingGameTest {
     	assertEquals(300,game.score());
     }
 
+    @Test
+    public void PartieUnStrikeFin() {
+    	rollMany(18,0);
+    	game.roll(10);
+    	game.roll(10);
+    	game.roll(8);
+    	assertEquals(28,game.score());
+    }
+    
+    @Test
+    public void PartieSansStrikeFin() {
+    	rollMany(18,0);
+    	game.roll(8);
+    	game.roll(1);
+    	assertEquals(9,game.score());
+    }
+    
+    @Test
+    public void PartieFinStrikeSuiviSpare() {
+    	rollMany(18,0);
+    	game.roll(10);
+    	game.roll(8);
+    	game.roll(2);
+    	assertEquals(20,game.score());
+    }
+    
+    @Test
+    public void PartieFinTripleStrike() {
+    	rollMany(18,0);
+    	game.roll(10);
+    	game.roll(10);
+    	game.roll(10);
+    	assertEquals(30,game.score());
+    }
     private void rollMany(int numberRolls, int numberPins) {
         for (int i = 0; i < numberRolls; i++) {
             game.roll(numberPins);

@@ -1,70 +1,34 @@
-Premier Exemple:
+Mauvais Code:
 
-for(i=0;i<15;i++){
-String text='15';
-break;
-}
 
-Correction:
+public void admpleor(Integer h, Integer g){ return h+g;}
 
-String text='15';
+void main(){ Integer i =admpleor(23,15);}
 
-Deuxième Exemple:
-Integer i = 1;
-while(i=1){
-
-String text='15';
-
-}
+**************************************
+- Mal indenté,ilisible
+- Erreur méthode void alors que l'on attend un retour de résultat
+- Aucune norme au niveau des noms des variables/méthodes
+- Aucun commentaire.
+**************************************
 
 Correction:
 
-Integer i = 15;
-String text; 
-while (i<15){
-text=i;
-}
+//Méthode d'addition de deux nombres
 
+public Integer AdditionDeuxNombres(Integer PremierNombre,Integer DeuxiemeNombre){
 
-Troisème exemple:
-
-if(true){
-String text='15';
-}
-
-Correction:
-
-String text='15';
-
-
-Quatrième exemple:
-
-If(i<10){
-  temp=10;
-  }Else{
-  temp=10
-  }
-  
-  Correction:
-  
-  If(i<10){
-  temp=10
-  }
-  
-  Cinquième exemple:
-  Integer i=10
-  
-  If(i=10){
-    temp=15;
-    }
+    //Retourne le résultat de PremierNombre+DeuxiemeNombre
     
-Correction:
-  
-  Integer i=10
-  If(i==10){
-    temp=15
-    }
-    
-    
+    return PremierNombre + DeuxiemeNombre;
+}
 
+void main(){
 
+    //Creation de la variable qui contiendra le résultat
+    
+    Integer ResultatAddition = 0;
+    
+    ResultatAddition = AdditionDeuxNombres(23,24);
+    
+}
