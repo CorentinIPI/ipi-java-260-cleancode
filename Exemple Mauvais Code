@@ -1,0 +1,70 @@
+Premier Exemple:
+
+for(i=0;i<15;i++){
+String text='15';
+break;
+}
+
+Correction:
+
+String text='15';
+
+Deuxième Exemple:
+Integer i = 1;
+while(i=1){
+
+String text='15';
+
+}
+
+Correction:
+
+Integer i = 15;
+String text; 
+while (i<15){
+text=i;
+}
+
+
+Troisème exemple:
+
+if(true){
+String text='15';
+}
+
+Correction:
+
+String text='15';
+
+
+Quatrième exemple:
+
+If(i<10){
+  temp=10;
+  }Else{
+  temp=10
+  }
+  
+  Correction:
+  
+  If(i<10){
+  temp=10
+  }
+  
+  Cinquième exemple:
+  Integer i=10
+  
+  If(i=10){
+    temp=15;
+    }
+    
+Correction:
+  
+  Integer i=10
+  If(i==10){
+    temp=15
+    }
+    
+    
+
+
