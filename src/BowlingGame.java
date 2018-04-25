@@ -1,151 +1,103 @@
 public class BowlingGame {
 
-	private int numLance = 0;
-    private int score = 0;    
-    private int strikePrevPrev = 0;
-    private int strikePrev = 0;
-    private int prevLancer1 = 0;
-    private int prevLancer2 = 0;
+    private int score=0;
+    private int NmLancer=0;
+    private int PrecLancer1=0;
+    private boolean isSpare=false;
+    private boolean isStrike=false;
+    private boolean isDoubleStrike=false;
 
-    //Check si c'est un spare retourne true
-	public Boolean checkSparePrev(){
-		if(getPrevLancer1() < 10 && (getPrevLancer1() + getPrevLancer2()) == 10 ){
-			return true;
-		}
-		else return false;
-	}
-		
-	public void roll(int numberPins) {
-		
-		//Incrémente le compteur de lancer de 1
-		setNumLance(getNumLance() + 1);
-		
-		//Si impair c'est le premier lancer sur les deux
-		if(getNumLance() % 2 == 1){
-			
-			//Si 2 strike avant alors on multiplie par 3 le nombre de quille actuel
-			if(getStrikePrevPrev() == 10 && getStrikePrev() == 10){
-				//Jusqu'au dixieme lancer on prend en compte le score du lancer actuel + les bonus
-				if(getNumLance() < 21){
-					setScore(getScore() + (numberPins * 3));
-				}
-				//Au onzieme lancer on prend en compte que les bonus des 2 lancer précédents
-				else if(getNumLance() == 21){
-					setScore(getScore() + (numberPins * 2));
-				}
-				//Au douzieme lancer on ne prend en compte que le bonus du 10eme lancer
-				else if(getNumLance() == 23){
-					setScore(getScore() + numberPins);
-				}
-			}
-			//Si 1 strike ou SPARE avant alors on multiplie par 2 le nombre de quille actuel
-			else if((checkSparePrev() == true || getStrikePrev() == 10)){
-				//Jusqu'au dixieme lancé on prend en compte le score du lancer actuel + le bonus du lancer précédent
-				if(getNumLance() < 21){
-					setScore(getScore() + (numberPins * 2));
-				}
-				//Au 11 eme lancer on ne prend pas en compte le lancer actuel
-				else if(getNumLance() == 21){
-					setScore(getScore() + numberPins);
-				}
-			}
-			else{
-				setScore(getScore() + numberPins);
-			}			
-			
-			//On sauvegarde le lancer actuel
-			setPrevLancer1(numberPins);		
+    public int score() {
+        return score;
+    };
 
-			
-			//Si on a fait un strike il n'y a pas de 2eme lancé donc on incrémente de 1 le compteur de lancé
-			if(numberPins == 10){
-				setNumLance(getNumLance() + 1);
-				
-				//Si strike précédent déja a 10 On sauvegarde un autre strike précédent précédent a 10
-				if(getStrikePrev() == 10){
-					setStrikePrevPrev(10);
-				}
-				//On sauvegarde le strike actuel comme précédent
-				else {
-					//On sauvegarde le strike
-					setStrikePrev(numberPins);
-				}
-			}
-			
-			
-		}
-		//Sinon si pair c'est le deuxieme lancer
-		else{
-			
-			//Si le lancer précédent était strike
-			//On multiplie par 2 le lancer actuel
-			//et on remet a 0 les strikes précédents
-			if(getStrikePrev() == 10){
-				if(getNumLance() < 22){
-					setScore(getScore() + (numberPins * 2));
-				}
-				//Au 11 eme lancer on ne prend pas en compte le lancer actuel
-				else if(getNumLance() == 22){
-					setScore(getScore() + numberPins);
-				}
-				setStrikePrevPrev(0);
-				setStrikePrev(0);
-			}
-			else{
-				setScore(getScore() + numberPins);
-			}
-			//Sauvegarde le deuieme lancer
-			setPrevLancer2(numberPins);
-		}
-		
+    public void roll(int numberPins) {
+    	
+    	//Incr�mentaion du nombre de lancer
+    	NmLancer++;
+    	
+    	if(NmLancer%2==1){
+    		
+    	
+    		PrecLancer1=numberPins;
+    		if(isSpare()) {
+    			score += numberPins*2;
+    			isSpare=false;
+    			if(numberPins==10) {
+    				isStrike=true;
+    				NmLancer++;
+    			}
+    		}else if(isStrike() && isDoubleStrike!=true){
+    			score += numberPins*2;
+    			if(numberPins==10) {
+    				isDoubleStrike=true;
+    				NmLancer++;
+    			}
+    		}else if(isDoubleStrike && NmLancer<=21) {
+    			score += numberPins*3;
+    			NmLancer++;
+    			if(numberPins != 10) isDoubleStrike=false;
+    		}else if(numberPins==10){
+    			score+= numberPins;
+    			if(NmLancer<=21) isStrike=true;
+    			NmLancer++;
+    		}else {
+    			score+= numberPins;
+    		}
+    		
+    		
+    	}else {
+    		if(PrecLancer1+numberPins==10) {
+    			isSpare=true;
+    			if(isStrike()) {
+    				score += numberPins*2;
+    				isStrike=false;
+    			}else {
+    				score += numberPins;
+    			}
+    			
+    		}else if(isStrike()) {
+    			score += numberPins*2;
+    			isStrike=false;
+    		}else {
+    			score += numberPins;
+    		}
+    		
+    	}
+    	
+        
     }
 
-
-	public int getScore() {
-		return score;
+	public int getNmLancer() {
+		return NmLancer;
 	}
 
-	public void setScore(int score) {
-		this.score = score;
-	}
-	
-	public int getPrevLancer1() {
-		return prevLancer1;
+	public void setNmLancer(int nmLancer) {
+		NmLancer = nmLancer;
 	}
 
-	public void setPrevLancer1(int prevLancer1) {
-		this.prevLancer1 = prevLancer1;
+	public int getPrecLancer1() {
+		return PrecLancer1;
 	}
 
-	public int getPrevLancer2() {
-		return prevLancer2;
+	public void setPrecLancer1(int precLancer1) {
+		PrecLancer1 = precLancer1;
 	}
 
-	public void setPrevLancer2(int prevLancer2) {
-		this.prevLancer2 = prevLancer2;
+	public boolean isSpare() {
+		return isSpare;
 	}
 
-	public int getNumLance() {
-		return numLance;
+	public void setSpare(boolean isSpare) {
+		this.isSpare = isSpare;
 	}
 
-	public void setNumLance(int numLance) {
-		this.numLance = numLance;
+	public boolean isStrike() {
+		return isStrike;
 	}
 
-	public int getStrikePrevPrev() {
-		return strikePrevPrev;
+	public void setStrike(boolean isStrike) {
+		this.isStrike = isStrike;
 	}
 
-	public void setStrikePrevPrev(int strikePrevPrev) {
-		this.strikePrevPrev = strikePrevPrev;
-	}
-
-	public int getStrikePrev() {
-		return strikePrev;
-	}
-
-	public void setStrikePrev(int strikePrev) {
-		this.strikePrev = strikePrev;
-	}
 }

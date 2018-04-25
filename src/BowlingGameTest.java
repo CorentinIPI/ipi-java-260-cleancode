@@ -7,32 +7,17 @@ public class BowlingGameTest {
 
     BowlingGame game = new BowlingGame();
 
-    public void rollMany(int numberRolls, int numberPins) {
-        for (int i = 0; i < numberRolls; i++) {
-            game.roll(numberPins);
-        }
-    }
-    
     @Test
     public void queDesGoutieresDonne0Points() {
-    	rollMany(11,0);
-        assertEquals(0, game.getScore());
+        rollMany(20, 0);
+        assertEquals(0, game.score());
     }
 
     @Test
     public void uneSeuleQuille(){
         game.roll(1);
-        
-        assertEquals(1, game.getScore());
-    }
-    
-    @Test
-    public void queDesStrikes(){
-    	
-    	//La partie max se fait en 12 strikes soit 300 points
-    	rollMany(12,10);
-        
-        assertEquals(300, game.getScore());
+        rollMany(19, 0);
+        assertEquals(1, game.score());
     }
 
     @Test
@@ -40,89 +25,68 @@ public class BowlingGameTest {
         game.roll(8);
         game.roll(2);
         game.roll(1);
-        
-        assertEquals(12, game.getScore());
-    } 
-
+        rollMany(17, 0);
+        assertEquals(12, game.score());
+    }
     @Test
-    public void bonusDuStrike(){
-        game.roll(8);
-        game.roll(0);
-        game.roll(10);
-        game.roll(1);
-        game.roll(5);
-        
-        assertEquals(30, game.getScore());
-    } 
-
+    public void bonusStrike() {
+    	game.roll(10);
+    	game.roll(8);
+    	game.roll(1);
+    	rollMany(17,0);
+    	assertEquals(28,game.score());
+    }
+    
     @Test
-    public void bonusDuStrike2Fois(){
-        game.roll(8);
-        game.roll(0);
-        game.roll(10);
-        game.roll(1);
-        game.roll(5);
-        game.roll(10);
-        game.roll(2);
-        game.roll(7);
-        
-        assertEquals(58, game.getScore());
-    } 
-
+    public void bonusDoubleStrike() {
+    	game.roll(10);
+    	game.roll(10);
+    	game.roll(8);
+    	game.roll(1);
+    	rollMany(14,0);
+    	assertEquals(56,game.score());
+    }
+    
     @Test
-    public void bonusDeuxStrikeAlasuite(){
-        game.roll(8);
-        game.roll(0);
-        game.roll(10);
-        game.roll(10);
-        game.roll(5);
-        
-        assertEquals(53, game.getScore());
-    } 
-
+    public void bonusDoubleSpare() {
+    	game.roll(8);
+    	game.roll(2);
+    	game.roll(8);
+    	game.roll(2);
+    	game.roll(1);
+    	rollMany(14,0);
+    	assertEquals(30,game.score());
+    }
+    
     @Test
-    public void bonusTroisStrikeAlasuite(){
-        game.roll(8);
-        game.roll(0);
-        game.roll(10);
-        game.roll(10);
-        game.roll(10);
-        game.roll(5);
-        
-        assertEquals(83, game.getScore());
-    } 
-
+    public void StrikeSuiviSpare() {
+    	game.roll(10);
+    	game.roll(8);
+    	game.roll(2);
+    	game.roll(1);
+    	rollMany(15,0);
+    	assertEquals(32,game.score());
+    }
+    
     @Test
-    public void jeuCompletAleatoire(){
-        game.roll(8);
-        game.roll(2);
-        
-        game.roll(10);
-        
-        game.roll(3);
-        game.roll(5);
-        
-        game.roll(5);
-        game.roll(5);
-        
-        game.roll(5);
-        game.roll(5);
-        
-        game.roll(2);
-        game.roll(8);
-        
-        game.roll(10);
-        
-        game.roll(10);
+    public void SpareSuiviStrike() {
+    	game.roll(8);
+    	game.roll(2);
+    	game.roll(10);
+    	game.roll(1);
+    	game.roll(1);
+    	rollMany(14,0);
+    	assertEquals(34,game.score());
+    }
+    @Test
+    public void FullStrike() {
+    	rollMany(12,10);
+    	assertEquals(300,game.score());
+    }
 
-        game.roll(10);
-        
-        game.roll(10);
-
-        game.roll(8);
-
-        game.roll(10);
-                
-        assertEquals(209, game.getScore());
+    private void rollMany(int numberRolls, int numberPins) {
+        for (int i = 0; i < numberRolls; i++) {
+            game.roll(numberPins);
+        }
     }
 }
