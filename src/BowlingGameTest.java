@@ -94,35 +94,34 @@ public class BowlingGameTest {
 
     @Test
     public void jeuCompletAleatoire(){
-        game.roll(8);//1
-        game.roll(2);//
+        game.roll(8);
+        game.roll(2);
         
-        game.roll(10);//2 = 30
+        game.roll(10);
         
-        game.roll(3);//3
-        game.roll(5);// = 46
+        game.roll(3);
+        game.roll(5);
         
-        game.roll(5);//4
-        game.roll(5);// = 56
+        game.roll(5);
+        game.roll(5);
         
-        game.roll(5);//5
-        game.roll(5);// = 71
+        game.roll(5);
+        game.roll(5);
         
-        game.roll(2);//6
-        game.roll(8);// = 83
+        game.roll(2);
+        game.roll(8);
         
-        game.roll(10);//7 = 103
+        game.roll(10);
         
-        game.roll(10);//8 = 123
+        game.roll(10);
 
-        game.roll(10);//9 = 153
+        game.roll(10);
         
-        //Plus de bonus sur les anciens lancer
-        game.roll(10);//10 Pour 3 = 162 Pour 10 = 183 Pour 10 = 183
+        game.roll(10);
 
-        game.roll(8);//11 Pour 7 = 176 Pour 3 = 189 Pour 10 = 203
+        game.roll(8);
 
-        game.roll(10);//12 Pour 5 = 181 Pour 6 = 195 Pour 10 = 213
+        game.roll(10);
                 
         assertEquals(209, game.getScore());
     }
